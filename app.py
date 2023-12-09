@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from sklearn.metrics import mean_squared_error
 
 # Load the data
 df = pd.read_csv("economic-indicators.csv")
@@ -14,7 +15,7 @@ columns_to_drop = ['total_jobs', 'unemp_rate', 'labor_force_part_rate', 'pipelin
                    'foreclosure_pet', 'foreclosure_deeds', 'med_housing_price', 
                    'housing_sales_vol', 'new_housing_const_permits', 'new-affordable_housing_permits']
 df_cleaned = df.drop(columns=columns_to_drop, axis=1)
-print(df_cleaned.head(4))
+print(df_cleaned.isnull().sum())
 # Calculate correlation between Logan Passengers and Hotel Occupancy Rate
 correlation = df_cleaned['logan_passengers'].corr(df_cleaned['hotel_occup_rate'])
 
@@ -63,6 +64,12 @@ for year in unique_years:
     plt.tight_layout()
     plt.show()
 
+########trying to find the occupancy rate##
+
+max_occupancy_month = monthly_avg_occupancy.loc[monthly_avg_occupancy['hotel_occup_rate'].idxmax()]['Month']
+max_occupancy_rate = monthly_avg_occupancy['hotel_occup_rate'].max()
+
+print(f"The month with the highest average hotel occupancy rate across all years is {max_occupancy_month} with an average rate of {max_occupancy_rate:.2f}")
 
 
 ######Time series analysis######
@@ -96,20 +103,6 @@ plt.show()
 df['Date'] = pd.to_datetime(df[['Year', 'Month']].assign(day=1))
 df.set_index('Date', inplace=True)
 
-# Plot rolling statistics (mean and variance)
-rolling_mean = df['hotel_occup_rate'].rolling(window=12).mean()
-rolling_std = df['hotel_occup_rate'].rolling(window=12).std()
-
-plt.figure(figsize=(10, 6))
-plt.plot(df['hotel_occup_rate'], color='blue', label='Original')
-plt.plot(rolling_mean, color='red', label='Rolling Mean (12 months)')
-plt.plot(rolling_std, color='black', label='Rolling Std (12 months)')
-plt.legend()
-plt.title('Rolling Statistics: Mean and Std Deviation')
-plt.xlabel('Date')
-plt.ylabel('Hotel Occupancy Rate')
-plt.show()
-
 
 df['Date'] = pd.to_datetime(df[['Year', 'Month']].assign(day=1))
 df.set_index('Date', inplace=True)
@@ -128,6 +121,7 @@ plt.title('Partial Autocorrelation Function (PACF)')
 plt.tight_layout()
 plt.show()
 
+y_true = [0.629,0.725,0.812,0.877,0.878,0.898,0.9,0.888,0.895,0.907,0.803,0.717]
 # Fit ARIMA model
 order = (2, 1, 2) 
 model = ARIMA(data, order=order)
@@ -147,3 +141,6 @@ plt.xlabel('Date')
 plt.ylabel('Occupancy Rate')
 plt.legend()
 plt.show()
+
+rmse = np.sqrt(mean_squared_error(y_true,forecast_values ))
+print(f"RMSE: {rmse}")
