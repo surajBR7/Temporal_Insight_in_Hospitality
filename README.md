@@ -62,6 +62,20 @@ pip install -r requirements.txt
 - Run the ARIMA model script to forecast future hotel occupancy rates.
 - Visualize the results using the provided plotting functions.
 
+## Results
+
+- **This is the horizontal graph showing the total Logan passengers by
+years and total hotel occupancy rate by year.**:
+
+![Alt text](./images/bargraph.jpg)
+
+- **Heat Map**:
+- ![Heat_map](./images/heatmap.jpg)
+
+- ** Time series forcaste** 
+- ![Time series forcaste]/(./images/timeseries.jpg)
+
+
 ## Author:
 ### Suraj Basavaraj Rajolad
 
