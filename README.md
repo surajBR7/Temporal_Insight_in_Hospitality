@@ -1,4 +1,5 @@
-# Temporal Insights in Hospitality: ARIMA Forecasting
+# Temporal Insights in Hospitality: 
+  # ARIMA Forecasting
 
 
 ## Project Overview
@@ -64,23 +65,20 @@ pip install -r requirements.txt
 
 ## Results
 
-- **This is the horizontal graph showing the total Logan passengers by
-years and total hotel occupancy rate by year.**:
-
-![Alt text](./images/bargraph.jpg)
+- **This is the horizontal graph showing the total Logan passengers by years and total hotel occupancy rate by year.**:
+- 
+   ![Alt text](./images/Bargraph.jpg)
 
 - **Heat Map**:
-- ![Heat_map](./images/heatmap.jpg)
+  
+  - ![Heat_map](./images/Heatmap.jpg)
 
-- ** Time series forcaste** 
-- ![Time series forcaste]/(./images/timeseries.jpg)
-
-
-## Author:
-### Suraj Basavaraj Rajolad
+- **Time series forcaste** 
+  - ![Time series forcaste](./images/Timeseries.jpg)
 
 
-References
+## References
+
 [Data source](https://github.com)
  
 
